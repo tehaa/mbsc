@@ -21,7 +21,8 @@ public class Add extends javax.swing.JFrame {
 
     public Add() {
         initComponents();
-   
+   int x ;
+   x=5 ;
          Color mycolor=Color.decode("#F5F5F5");
          this.getContentPane().setBackground(mycolor); 
           
