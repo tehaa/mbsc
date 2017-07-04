@@ -211,7 +211,7 @@ static String path_file ;
        Generate.getdate();
    Generate.create_table();
         Generate.fill_report();
-          JOptionPane.showMessageDialog(null, "Done", "Success", 2, new ImageIcon("Ok.png"));
+     //     JOptionPane.showMessageDialog(null, "Done", "Success", 2, new ImageIcon("Ok.png"));
         
 
     }//GEN-LAST:event_jButton1ActionPerformed

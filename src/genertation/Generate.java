@@ -60,7 +60,7 @@ import org.apache.poi.ss.usermodel.Row;
 import connect.Main_page;
 
 public class Generate  {
-
+static  boolean E ;
     static String r_name;
     static String path;
     static String script;
@@ -156,6 +156,7 @@ public class Generate  {
     }
 
     public static void fill_report() {
+      E=false ;
         String row = null;
         String data = null;
         intail_connection();
@@ -164,6 +165,7 @@ public class Generate  {
                 String query = "select * from r_" + p + "_" + r_name;
                 ResultSet rset = stmt.executeQuery(query);
                 while (rset.next()) {
+                    E=true ;
                     ResultSetMetaData rsmd = rset.getMetaData();
                     String colume = rset.getString(1);
                     for (int i = 2; i <= rsmd.getColumnCount(); i++) {
@@ -178,7 +180,7 @@ public class Generate  {
                 System.out.println(pos.toString());
             }
             String extionion = path.split("\\.")[2];
-
+        
             if (extionion.contains("xlsx")) {
                 write_xlsx(path);
 
@@ -254,6 +256,12 @@ int col_num = Integer.parseInt(row_num) - 1;
       fIP.close();
             FileOutputStream output_file = new FileOutputStream(destination);
             workbook.write(output_file);
+             if (E) {
+                  JOptionPane.showMessageDialog(null, "Done", "Success", 2, new ImageIcon("Ok.png"));
+            }
+  else {
+     JOptionPane.showMessageDialog(null, "Error", "Fail", 2, new ImageIcon("Ok.png"));
+  }
  output_file.close();
 } catch (Exception es) {
             es.printStackTrace();
@@ -366,6 +374,7 @@ int col_num = Integer.parseInt(row_num) - 1;
 
     public static void writexls(String path) {
         try {
+              
             File source = new File(path);
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -432,10 +441,16 @@ int col_num = Integer.parseInt(row_num) - 1;
 
             }
             System.out.println(copysheet.getRows());
-            
+          
             // copysheet.setPageSetup(PageOrientation.PORTRAIT);
             copy.write();
-
+            System.out.println(b);
+  if (E) {
+                  JOptionPane.showMessageDialog(null, "Done", "Success", 2, new ImageIcon("Ok.png"));
+            }
+  else {
+     JOptionPane.showMessageDialog(null, "Error", "Fail", 2, new ImageIcon("Ok.png"));
+  }
             copy.close();
 
         } catch (Exception es) {
