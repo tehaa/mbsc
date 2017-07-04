@@ -36,6 +36,7 @@ public class Defination_form extends javax.swing.JFrame {
     static DefaultTableModel model,model2;
     
     public Defination_form() throws SQLException {
+        System.out.println("hello ");
         initComponents();
         this.setTitle("CBE Reports");
         Color mycolor = Color.decode("#C5CAE9");
