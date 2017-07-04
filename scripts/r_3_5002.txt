@@ -1,0 +1,44 @@
+create table r_3_5002 (col int ) auto_increment=152
+select ifnull(case when cu.id=lc.applicant_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000 then substring_index(cu.short_name,'|',1) end,0) A,
+ifnull(case when cu.id=lc.applicant_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000
+ then SUBSTRING_INDEX(cu.legal_id,'|',1) end,0) C,
+ifnull(case when cu.id=lc.applicant_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000
+then cu.id end,0) D,
+ifnull(case when cu.id=lc.applicant_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000
+ then (lc.lc_amount*lc.provision_rate)/1000000 end,0)  E,
+ifnull(case when cu.id=lc.applicant_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000
+ then lc.lc_currency end,0) F ,
+ifnull(case when cu.id=lc.applicant_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000
+ then lc.provision_rate end,0) G,
+ifnull(case when cu.id=lc.beneficiary_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000
+ then substring_index(cu.short_name,'|',1) end,0) H,
+ifnull(case when cu.id=lc.beneficiary_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000 
+then co.country_name end,0) I
+from customer cu
+ join letter_of_credit lc on cu.id=lc.beneficiary_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000 or cu.id=lc.applicant_custno and sum(lc.lc_amount*lc.provision_rate/(select lc.provision_rate from letter_of_credit lc where lc.lc_currency='USD'))>100000
+ join country co on cu.nationality=co.id
+ where lc.lc_type like 'im' 
+ 
+ union all
+ select ifnull(case when cu.id=fu.credit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000 
+ then substring_index(cu.short_name,'|',1) end,0) A,
+ifnull(case when cu.id=fu.credit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000
+ then SUBSTRING_INDEX(cu.legal_id,'|',1) end,0) C,
+ifnull(case when cu.id=fu.credit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000 
+then cu.id end,0) D,
+ifnull(case when cu.id=fu.credit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000
+ then (fu.credit_amount*fu.treasury_rate)/1000000 end,0)  E,
+ifnull(case when cu.id=fu.credit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000
+ then fu.credit_currency end,0) F ,
+ifnull(case when cu.id=fu.credit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000
+ then fu.treasury_rate end,0) G,
+ifnull(case when cu.id=fu.debit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000
+ then substring_index(cu.short_name,'|',1) end,0) H,
+ifnull(case when cu.id=fu.debit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000
+ then co.country_name end,0) I
+from customer cu
+join account ac on cu.id=ac.customer
+ join funds_transfer fu on ac.account_number=fu.credit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000 or ac.account_number=fu.debit_acct_no and sum(fu.credit_amount*fu.treasury_rate/(select fu.treasury_rate from funds_transfer fu where fu.credit_currency='USD'))>100000
+ join country co on cu.nationality=co.id
+ where fu.transaction_type like 'i%' 
+ group by cu.id

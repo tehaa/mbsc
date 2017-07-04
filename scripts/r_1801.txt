@@ -1,0 +1,27 @@
+create table R_1801 (col int) engine = InnoDB auto_increment = 28 as
+SELECT distinct c.SUM_AMT C, d.sum_amt D, e.sum_amt E, g.sum_amt G, h.sum_amt H, i.sum_amt I, l.sum_amt L, m.sum_amt M 
+FROM t_1801 aaa 
+left outer join t_1801 c on aaa.id = c.id and c.INDICATOR = 'demand_EGP_treasury_gov'
+left outer join t_1801 d on aaa.id = d.id and d.INDICATOR = 'saving_EGP_treasury_gov'
+left outer join t_1801 e on aaa.id = e.id and e.INDICATOR = 'impounded_EGP_treasury_gov'
+left outer join t_1801 g on aaa.id = g.id and g.INDICATOR = 'demand_other_treasury_gov'
+left outer join t_1801 h on aaa.id = h.id and h.INDICATOR = 'saving_other_treasury_gov'
+left outer join t_1801 i on aaa.id = i.id and i.INDICATOR = 'impound_other_treasury_gov'
+left outer join t_1801 l on aaa.id = l.id and l.INDICATOR = 'local_curr_treasury_gov'
+left outer join t_1801 m on aaa.id = m.id and m.INDICATOR = 'other_curr_treasury_gov'
+left outer join t_1801 n on aaa.id = n.id and n.INDICATOR = 'demand_EGP_local_gov'
+left outer join t_1801 o on aaa.id = o.id and o.INDICATOR = 'saving_EGP_local_gov'
+left outer join t_1801 p on aaa.id = p.id and p.INDICATOR = 'impounded_EGP_local_gov'
+left outer join t_1801 q on aaa.id = q.id and q.INDICATOR = 'demand_other_local_gov'
+left outer join t_1801 r on aaa.id = r.id and r.INDICATOR = 'saving_other_local_gov'
+left outer join t_1801 s on aaa.id = s.id and s.INDICATOR = 'impound_other_local_gov'
+left outer join t_1801 t on aaa.id = t.id and t.INDICATOR = 'local_curr_local_gov'
+left outer join t_1801 u on aaa.id = u.id and u.INDICATOR = 'other_curr_local_gov'
+left outer join t_1801 v on aaa.id = v.id and v.INDICATOR = 'demand_EGP_service_org'
+left outer join t_1801 w on aaa.id = w.id and w.INDICATOR = 'saving_EGP_service_org'
+left outer join t_1801 x on aaa.id = x.id and x.INDICATOR = 'impound_EGP_service_org'
+left outer join t_1801 k on aaa.id = k.id and k.INDICATOR = 'demand_other_service_org'
+left outer join t_1801 y on aaa.id = y.id and y.INDICATOR = 'saving_other_service_org'
+left outer join t_1801 z on aaa.id = z.id and z.INDICATOR = 'impound_other_service_org'
+left outer join t_1801 b on aaa.id = b.id and b.INDICATOR = 'local_curr_service_org'
+left outer join t_1801 f on aaa.id = f.id and f.INDICATOR = 'other_curr_service_org';

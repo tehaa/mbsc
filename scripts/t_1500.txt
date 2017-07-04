@@ -1,0 +1,47 @@
+create table t_1500 as
+select 
+gl.currency, 
+gl.report_name,
+gl.gl_line,
+case cbe.Sign when 1 then
+truncate((sum(gl.amount)/ 1000) ,0)
+else 
+truncate((sum(-1 * gl.amount)/ 1000) ,0) 
+end sum_amt, 
+cbe.Sign,
+cbe.excel_line cbe_no, 
+cbe.ccy_type, 
+cbe.report_name cbe_rep_name,
+cbe.gl_line cbe_gl_line,
+'EGP' indicator
+from t_gl_total_balances gl
+left outer join cbe_1500_map cbe 
+on gl.gl_line = cbe.gl_line
+where cbe.ccy_type = 'LCY'
+and gl.currency = 'EGP'
+and gl.report_name = 'AIBKGL.EQV'
+group by cbe.excel_line
+
+union all
+
+select 
+gl.currency, 
+gl.report_name,
+gl.gl_line,
+case cbe.Sign when 1 then
+truncate((sum(gl.amount)/ 1000),0) 
+else truncate((sum(-1 * gl.amount)/ 1000) ,0)
+end sum_amt, 
+cbe.Sign,
+cbe.excel_line cbe_no,
+cbe.ccy_type, 
+cbe.report_name cbe_rep_name,
+cbe.gl_line cbe_gl_line,
+'Other' indicator
+from t_gl_total_balances gl
+left outer join cbe_1500_map cbe 
+on gl.gl_line = cbe.gl_line
+where cbe.ccy_type = 'FCY'
+and gl.currency <> 'EGP'
+and gl.report_name = 'AIBKGL.EQV'
+group by cbe.excel_line;

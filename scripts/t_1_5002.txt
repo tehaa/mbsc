@@ -1,0 +1,59 @@
+create table t_1_5002 as
+select lc.lc_currency currency,lc.applicant_acc account, 
+ifnull(case
+when (cu.sector between 2000 and 2999 or cu.sector between 4000 and 4999)
+ then count(distinct cu.id) end,0) C ,
+ ifnull(case
+when (cu.sector between 2000 and 2999 or cu.sector between 4000 and 4999)
+ then sum(lc.lc_amount*lc.provision_rate)/1000000 end,0) D, ''E, '1' ind
+ from customer cu
+ left outer join letter_of_credit lc on cu.id=lc.applicant_custno
+ where lc.lc_type like 'ex'
+ group by concat(cu.sector,lc.lc_currency)
+ union all
+select
+fu.credit_currency currency,fu.credit_acct_no account,
+ifnull(case
+when (cu.sector between 2000 and 2999 or cu.sector between 4000 and 4999)
+ then count(distinct cu.id) end,0) C ,
+ifnull(case
+when (cu.sector between 2000 and 2999 or cu.sector between 4000 and 4999)
+ then sum(fu.credit_amount*fu.treasury_rate)/1000000 end,0) D ,
+ifnull(case
+when cu.sector between 1000 and 1999
+ then sum(fu.credit_amount*fu.treasury_rate)/1000000 end,0) E,
+  '2'ind
+from account ac 
+left outer join customer cu on ac.customer=cu.id
+left outer join funds_transfer fu on fu.credit_acct_no=ac.account_number
+where fu.transaction_type like 'O%'
+group by concat(cu.sector,fu.credit_currency)
+union all
+select lc.lc_currency currency, lc.beneficiary_acc account,
+ifnull(case
+when (cu.sector between 2000 and 2999 or cu.sector between 4000 and 4999)
+ then count(distinct cu.id) end,0) C ,
+ ifnull(case
+when (cu.sector between 2000 and 2999 or cu.sector between 4000 and 4999)
+ then sum(lc.lc_amount*lc.provision_rate)/1000000 end,0) D, ''E, '3' ind
+ from customer cu
+ left outer join letter_of_credit lc on cu.id=lc.beneficiary_custno
+ where lc.lc_type like 'im'
+ group by concat(cu.sector,lc.lc_currency)
+union all
+select fu.debit_currency currency, fu.debit_acct_no,
+ifnull(case
+when cu.sector between 2000 and 2999 or cu.sector between 4000 and 4999
+then count(distinct cu.id) end,0) C ,
+ifnull(case
+when cu.sector between 2000 and 2999 or cu.sector between 4000 and 4999
+then sum(fu.debit_amount*fu.treasury_rate)/1000000 end,0) D ,
+ifnull(case
+when cu.sector between 1000 and 1999
+then sum(fu.debit_amount*fu.treasury_rate)/1000000 end,0) E ,'4' ind
+from account ac 
+left outer join customer cu on ac.customer=cu.id
+left outer join funds_transfer fu on ac.account_number=fu.debit_acct_no
+where fu.transaction_type like 'I%'
+group by concat(cu.sector,fu.debit_currency);
+

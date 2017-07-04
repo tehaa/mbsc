@@ -1,0 +1,32 @@
+create table r_5002 (col int ) auto_increment=37 as
+select a.C C,a.D D,b.C G,b.D H,b.E K,c.C M,c.D N,d.C Q,d.D R,d.E U
+from t_5002 aa 
+left outer join t_5002 a on aa.account=a.account and a.ind='1'
+left outer join t_5002 b on aa.account=b.account and b.ind='2'
+left outer join t_5002 c on aa.account=c.account and c.ind='3'
+left outer join t_5002 d on aa.account=d.account and d.ind='4'
+where aa.currency='USD' 
+union all 
+select a.C C,a.D D,b.C G,b.D H,b.E K,c.C M,c.D N,d.C Q,d.D R,d.E U
+from t_5002 aa 
+left outer join t_5002 a on aa.account=a.account and a.ind='1'
+left outer join t_5002 b on aa.account=b.account and b.ind='2'
+left outer join t_5002 c on aa.account=c.account and c.ind='3'
+left outer join t_5002 d on aa.account=d.account and d.ind='4'
+where aa.currency='EUR'
+union all
+select a.C C,a.D D,b.C G,b.D H,b.E K,c.C M,c.D N,d.C Q,d.D R,d.E U
+from t_5002 aa 
+left outer join t_5002 a on aa.account=a.account and a.ind='1'
+left outer join t_5002 b on aa.account=b.account and b.ind='2'
+left outer join t_5002 c on aa.account=c.account and c.ind='3'
+left outer join t_5002 d on aa.account=d.account and d.ind='4'
+where aa.currency='GBP'
+union all
+select a.C C,a.D D,b.C G,b.D H,b.E K,c.C M,c.D N,d.C Q,d.D R,d.E U
+from t_5002 aa 
+left outer join t_5002 a on aa.account=a.account and a.ind='1'
+left outer join t_5002 b on aa.account=b.account and b.ind='2'
+left outer join t_5002 c on aa.account=c.account and c.ind='3'
+left outer join t_5002 d on aa.account=d.account and d.ind='4'
+where aa.currency not in ('USD','EUR','GBP')  

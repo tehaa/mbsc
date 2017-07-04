@@ -1,0 +1,17 @@
+create table r_5014 (col int) engine = InnoDB auto_increment = 14 as
+select substring_index( cust.short_name, '|',-1) A, 
+cust.cbe_number C, 
+cust.legal_id D,
+count(ft.debit_acct_no) E,
+sum(ft.debit_amount * substring_index(ccy.mid_reval_rate/
+(select substring_index(ccy.mid_reval_rate,'|',1) from currency ccy where ccy.id='USD'),'|',1)) / 1000 F
+from account acc
+join funds_transfer ft on acc.account_number=ft.debit_acct_no
+join customer cust on acc.customer=cust.id
+join currency ccy on acc.currency = ccy.id
+where cust.legal_doc_name = 'COMM.REGISTER'
+and acc.currency = ft.debit_currency
+and DAYNAME(CURDATE())
+group by cust.id;
+
+#report_5014#

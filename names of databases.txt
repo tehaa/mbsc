@@ -1,0 +1,15 @@
+report-imports
+ahmed
+sit2
+lab bishly
+AIBKK
+aibprod
+AIBKMIG
+migg_sql
+mysql_uat
+aibk_uat
+prod_mysql
+prod_2_mysql
+
+
+test_mido

@@ -1,0 +1,35 @@
+create  table r_1_5001 (COL int primary key  unique auto_increment not null)  auto_increment=27    as
+select ifnull('-60.0032649',0) B, sum(a.C) C,sum(a.D) D,sum(a.E) E,sum(a.F) F,sum(a.G) G,sum(a.H) H,sum(a.I) I,sum(a.J) K,sum(a.K) L,sum(a.L) M,sum(a.M) N,
+sum(b.C) O,sum(b.D) P,sum(b.E) Q,sum(b.F) R,sum(b.G) S,sum(b.H) T,sum(b.I) U,sum(b.J) W,sum(b.K) X,sum(b.L) Y, ifnull(SUM(b.M),0) AA
+from t_1_5001 aaa
+left outer join t_1_5001 a on aaa.account=a.account and a.ind='1'
+left outer join t_1_5001 b on aaa.account=b.account and b.ind='2'
+where aaa.currency='EGP'
+union all
+select ifnull('-4.4009426',0) B, sum(a.C) C,sum(a.D) D,sum(a.E) E,sum(a.F) F,sum(a.G) G,sum(a.H) H,sum(a.I) I,sum(a.J) K,sum(a.K) L,sum(a.L) M,sum(a.M) N,
+sum(b.C) O,sum(b.D) P,sum(b.E) Q,sum(b.F) R,sum(b.G) S,sum(b.H) T,sum(b.I) U,sum(b.J) W,sum(b.K) X,sum(b.L) Y, ifnull(SUM(b.M),0) AA
+from t_1_5001 aaa
+left outer join t_1_5001 a on aaa.account=a.account and a.ind='1'
+left outer join t_1_5001 b on aaa.account=b.account and b.ind='2'
+where aaa.currency='USD'
+union all
+select ifnull('-1.5131409299999998',0) B , sum(a.C) C,sum(a.D) D,sum(a.E) E,sum(a.F) F,sum(a.G) G,sum(a.H) H,sum(a.I) I,sum(a.J) K,sum(a.K) L,sum(a.L) M,sum(a.M) N,
+sum(b.C) O,sum(b.D) P,sum(b.E) Q,sum(b.F) R,sum(b.G) S,sum(b.H) T,sum(b.I) U,sum(b.J) W,sum(b.K) X,sum(b.L) Y, ifnull(SUM(b.M),0) AA
+from t_1_5001 aaa
+left outer join t_1_5001 a on aaa.account=a.account and a.ind='1'
+left outer join t_1_5001 b on aaa.account=b.account and b.ind='2'
+where aaa.currency='EUR'
+union all
+select  '0' B ,sum(a.C) C,sum(a.D) D,sum(a.E) E,sum(a.F) F,sum(a.G) G,sum(a.H) H,sum(a.I) I,sum(a.J) K,sum(a.K) L,sum(a.L) M,sum(a.M) N,
+sum(b.C) O,sum(b.D) P,sum(b.E) Q,sum(b.F) R,sum(b.G) S,sum(b.H) T,sum(b.I) U,sum(b.J) W,sum(b.K) X,sum(b.L) Y, ifnull(SUM(b.M),0) AA
+from t_1_5001 aaa
+left outer join t_1_5001 a on aaa.account=a.account and a.ind='1'
+left outer join t_1_5001 b on aaa.account=b.account and b.ind='2'
+where aaa.currency='GBP'
+union all
+select '-67.95800874999999' B, sum(a.C) C,sum(a.D) D,sum(a.E) E,sum(a.F) F,sum(a.G) G,sum(a.H) H,sum(a.I) I,sum(a.J) K,sum(a.K) L,sum(a.L) M,sum(a.M) N,
+ifnull(sum(b.C),0) O,ifnull(sum(b.D),0) P,ifnull(sum(b.E),0) Q,ifnull(sum(b.F),0) R,ifnull(sum(b.G),0) S,ifnull(sum(b.H),0) T,ifnull(sum(b.I),0) U, ifnull(sum(b.J),0) W,ifnull(sum(b.K),0) X,ifnull(sum(b.L),0) Y, ifnull(SUM(b.M),0) AA
+from t_1_5001 aaa
+left outer join t_1_5001 a on aaa.account=a.account and a.ind='1'
+left outer join t_1_5001 b on aaa.account=b.account and b.ind='2'
+where aaa.currency not in ('EGP','USD','EUR','GBP');

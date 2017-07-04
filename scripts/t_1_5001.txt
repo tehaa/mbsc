@@ -1,0 +1,85 @@
+create  table t_1_5001  as
+select 
+te.account_1 account,te.currency_1 currency ,
+ifnull(case
+when cu.sector not in(5940,5941)
+then count(distinct te.customer_2) end,0) C ,
+ifnull(case
+when cu.sector  not in(5940,5941)
+then sum(te.amount_local_1)/1000000 end,0) D ,
+ifnull(case
+when cu.sector  not in(5940,5941)
+then count(distinct te.customer_2) end,0) E ,
+ifnull(case
+when cu.sector  not in(5940,5941)
+then sum(te.amount_local_1)/1000000 end,0) F ,
+ifnull(case
+when cu.sector not in(5940,5941)
+then count(distinct te.customer_2) end,0) G ,
+ifnull(case
+when cu.sector not in(5940,5941)
+then sum(te.amount_local_1)/1000000 end,0) H ,
+ifnull(case
+when cu.sector in(5940,5941)
+then sum(te.amount_local_1)/1000000 end,0) I ,
+ifnull(case
+when te.account_1=9800000050010102
+then sum(te.amount_local_1)/1000000 end,0) J ,
+ifnull(case
+when te.account_1=9800203250010101
+then sum(te.amount_local_1)/1000000 end,0) K ,
+ifnull(case
+when cu.sector in(4500,4502,4503,4505,4510,4511,4530) and te.account_1 not in(9800203250010101,9800000050010102)
+then sum(te.amount_local_1)/1000000 end,0) L ,
+ifnull(case cu.sector
+when cu.sector not in( 4500,5941,4500,4502,4503,4505,4510,4511,4530)
+ then sum(te.amount_local_1)/1000000 end,0) M,'1' ind
+from teller te 
+left outer join customer cu on te.customer_2=cu.id
+where dr_cr_marker = 'DEBIT'
+group by te.currency_1
+
+
+
+
+union all 
+select
+
+te.account_2 account,te.currency_2 currency ,
+ifnull(case
+when cu.sector not in(5940,5941)
+then count(distinct te.customer_2) end,0) C ,
+ifnull(case
+when cu.sector not in(5940,5941)
+then sum(te.amount_local_1)/1000000 end,0) D ,
+ifnull(case
+when cu.sector not in(5940,5941)
+then count(distinct te.customer_1) end,0) E ,
+ifnull(case
+when cu.sector not in(5940,5941)
+then sum(te.amount_local_1)/1000000 end,0) F ,
+ifnull(case
+when cu.sector not in(5940,5941)
+then count(distinct te.customer_1) end,0) G ,
+ifnull(case
+when cu.sector not in(5940,5941)
+then sum(te.amount_local_1)/1000000 end,0) H ,
+ifnull(case
+when cu.sector  in(5940,5941)
+then sum(te.amount_local_1)/1000000 end,0) I ,
+ifnull(case
+when te.account_2=9800000050010102
+then sum(te.amount_local_1)/1000000 end,0) J ,
+ifnull(case
+when te.account_2=9800203250010101
+then sum(te.amount_local_1)/1000000 end,0) K ,
+ifnull(case 
+when cu.sector not in( 4500,5941,4502,4503,4505,4510,4511,4530) then sum(te.amount_local_1)/1000000 end,0) L ,
+ 
+substring_index(cy.mid_reval_rate,'|',1) M , '2'ind
+from teller te 
+left outer join customer cu on te.customer_2=cu.id
+join currency cy on te.currency_2=cy.id
+where dr_cr_marker = 'CREDIT'
+group by te.currency_2;
+

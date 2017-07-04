@@ -1,0 +1,7 @@
+create table r_1500 as 
+select c.cbe_no, c.sum_amt C , d.sum_amt D
+from t_1500 c
+left outer join t_1500 d
+on c.cbe_no = d.cbe_no
+where c.indicator = 'EGP'
+and d.indicator = 'Other';

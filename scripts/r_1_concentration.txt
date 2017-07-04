@@ -1,0 +1,98 @@
+create table r_1_concentration (col int ) auto_increment=4 as select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=
+union all
+select t.aa C,'' D,t.a E,t.b F,t.c G,t.d H,t.e I,t.f J,t.g K,t.h L,t.i M,t.j N
+FROM t_1_concentrations t  # where t.industry=

@@ -1,0 +1,18 @@
+create table R_5016 (col int  ) engine = InnoDB auto_increment = 9 as select
+
+substring_index( c.short_name, '|',-1) B , 
+c.sector C , 
+c.legal_id D ,
+c.cbe_number E ,
+c.industry F ,
+(lc.lc_amount*substring_index(ccy.mid_reval_rate/
+(select substring_index(ccy.mid_reval_rate,'|',1) from currency ccy where ccy.id='USD'
+),'|',1)) G
+from account acc
+join customer c on c.id = acc.customer
+join letter_of_credit lc on lc.beneficiary_custno = acc.account_number
+join currency ccy  on ccy.id = acc.currency
+where c.legal_doc_name = 'COMM.REGISTER'
+
+
+#report_5016##

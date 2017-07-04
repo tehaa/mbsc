@@ -1,0 +1,4 @@
+create table t_2_5001 as
+select customer_2 cust ,sum(amount_local_1)/1000000 total from teller 
+where dr_cr_marker = 'CREDIT'
+group by customer_2

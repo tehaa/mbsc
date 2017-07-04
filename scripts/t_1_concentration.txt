@@ -1,0 +1,163 @@
+create table t_1_concentration as
+select cu.industry , count(distinct cu.id) aa,
+case when cu.orr=1 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end a,
+case when cu.orr=2 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end b,
+case when cu.orr=3 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end c,
+case when cu.orr=4 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end d,
+case when cu.orr=5 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end e,
+case when cu.orr=6 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end f,
+case when cu.orr=7 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end g,
+case when cu.orr=8 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end h,
+case when cu.orr=9 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end i,
+case when cu.orr=10 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end j
+from customer cu
+join ld_loans_and_deposits ld on cu.id=ld.customer_id
+join account ac on cu.id=ac.customer
+join currency cy on cy.id=ac.currency and cy.id=ld.currency
+group by cu.industry
+union all
+select cu.industry , count(distinct cu.id) aa,
+case when cu.orr=1 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end a,
+case when cu.orr=2 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end b,
+case when cu.orr=3 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end c,
+case when cu.orr=4 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end d,
+case when cu.orr=5 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end e,
+case when cu.orr=6 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end f,
+case when cu.orr=7 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end g,
+case when cu.orr=8 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end h,
+case when cu.orr=9 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end i,
+case when cu.orr=10 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end j
+from customer cu
+join ld_loans_and_deposits ld on cu.id=ld.customer_id
+join account ac on cu.id=ac.customer
+join currency cy on cy.id=ac.currency and cy.id=ld.currency
+group by cu.industry
+union all
+select cu.industry , count(distinct cu.id) aa,
+case when cu.orr=1 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end a,
+case when cu.orr=2 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end b,
+case when cu.orr=3 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end c,
+case when cu.orr=4 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end d,
+case when cu.orr=5 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end e,
+case when cu.orr=6 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end f,
+case when cu.orr=7 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end g,
+case when cu.orr=8 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end h,
+case when cu.orr=9 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end i,
+case when cu.orr=10 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end j
+from customer cu
+join ld_loans_and_deposits ld on cu.id=ld.customer_id
+join account ac on cu.id=ac.customer
+join currency cy on cy.id=ac.currency and cy.id=ld.currency
+group by cu.industry
+union all
+select cu.industry , count(distinct cu.id) aa,
+case when cu.orr=1 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end a,
+case when cu.orr=2 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end b,
+case when cu.orr=3 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end c,
+case when cu.orr=4 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end d,
+case when cu.orr=5 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end e,
+case when cu.orr=6 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end f,
+case when cu.orr=7 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end g,
+case when cu.orr=8 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end h,
+case when cu.orr=9 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end i,
+case when cu.orr=10 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end j
+from customer cu
+join ld_loans_and_deposits ld on cu.id=ld.customer_id
+join account ac on cu.id=ac.customer
+join currency cy on cy.id=ac.currency and cy.id=ld.currency
+group by cu.industry
+union all
+select cu.industry , count(distinct cu.id) aa,
+case when cu.orr=1 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end a,
+case when cu.orr=2 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end b,
+case when cu.orr=3 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end c,
+case when cu.orr=4 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end d,
+case when cu.orr=5 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end e,
+case when cu.orr=6 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end f,
+case when cu.orr=7 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end g,
+case when cu.orr=8 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end h,
+case when cu.orr=9 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end i,
+case when cu.orr=10 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end j
+from customer cu
+join ld_loans_and_deposits ld on cu.id=ld.customer_id
+join account ac on cu.id=ac.customer
+join currency cy on cy.id=ac.currency and cy.id=ld.currency
+group by cu.industry
+union all
+select cu.industry , count(distinct cu.id) aa,
+case when cu.orr=1 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end a,
+case when cu.orr=2 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end b,
+case when cu.orr=3 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end c,
+case when cu.orr=4 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end d,
+case when cu.orr=5 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end e,
+case when cu.orr=6 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end f,
+case when cu.orr=7 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end g,
+case when cu.orr=8 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end h,
+case when cu.orr=9 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end i,
+case when cu.orr=10 then sum(ac.working_balance*substring_index(cy.mid_reval_rate,'|',1))/1000+
+sum(ld.amount*substring_index(cy.mid_reval_rate,'|',1))/1000 end j
+from customer cu
+join ld_loans_and_deposits ld on cu.id=ld.customer_id
+join account ac on cu.id=ac.customer
+join currency cy on cy.id=ac.currency and cy.id=ld.currency
+group by cu.industry
+;

@@ -1,0 +1,724 @@
+create table t_1801 as
+select
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'demand_EGP_treasury_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 1)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 4)
+group by c.id
+
+union all
+
+select
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'demand_other_treasury_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 1)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 4)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'saving_EGP_treasury_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 1)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 5)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'saving_other_treasury_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 1)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 5)
+group by c.id
+ 
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'impounded_EGP_treasury_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 1)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 6)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'impounded_other_treasury_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 1)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 6)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'local_curr_treasury_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 1)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 7)
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 8)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'other_curr_treasury_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 1)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 7)
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 8)
+group by c.id
+
+union all
+
+select
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'demand_EGP_local_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 2)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 4)
+group by c.id
+
+union all
+
+select
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'demand_other_local_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 2)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 4)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'saving_EGP_local_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 2)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 5)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'saving_other_local_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 2)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 5)
+group by c.id
+ 
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'impounded_EGP_local_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 2)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 6)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'impounded_other_local_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 2)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 6)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'local_curr_local_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 2)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 7)
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 8)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'other_curr_local_gov' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 2)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 7)
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 8)
+group by c.id
+
+union all
+
+select
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'demand_EGP_service_org' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 3)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 4)
+group by c.id
+
+union all
+
+select
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'demand_other_service_org' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 3)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 4)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'saving_EGP_service_org' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 3)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 5)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'saving_other_service_org' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 3)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 5)
+group by c.id
+ 
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'impounded_EGP_service_org' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 3)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 6)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'impounded_other_service_org' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 3)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 6)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+(ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+else (ifnull((1 * ifnull(sum(a.working_balance), 0)),0) + ifnull(ifnull(sum(ld.amount), 0),0)) / 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'local_curr_service_org' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 3)
+and a.currency = ld.currency
+and ld.currency = 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 7)
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 8)
+group by c.id
+
+union all
+
+select  
+c.id, 
+ifnull(sum(a.working_balance), 0) work_bal_sum, 
+ifnull(sum(ld.amount), 0) amt_sum, 
+a.currency a_curr,
+ld.currency ld_curr,
+substring_index(ccy.mid_reval_rate,'|',1) mid_reval_rate,
+ifnull(sum(a.working_balance), 0) * substring_index(ccy.mid_reval_rate,'|',1)   working_bal_lcl, 
+ifnull(sum(ld.amount), 0) * substring_index(ccy.mid_reval_rate,'|',1) amount_lcl,
+case when ifnull((sum(a.working_balance)),0) < 0 then
+((ifnull((-1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000
+else ((ifnull((1 * ifnull(sum(a.working_balance), 0)),0) * substring_index(ccy.mid_reval_rate,'|',1)) + (ifnull(ld.amount, 0) * substring_index(ccy.mid_reval_rate,'|',1)))/ 1000  
+end sum_amt,
+a.category a_cat, 
+ld.category ld_cat,
+'other_curr_service_org' indicator
+from customer c 
+left join account a
+on c.id = a.customer
+left join ld_loans_and_deposits ld
+on c.id= ld.customer_id
+left join currency ccy on a.currency = ccy.id
+where c.sector in (select parameters from parameters_table where report_no = 1801 and id = 3)
+and a.currency = ld.currency
+and ld.currency <> 'EGP'
+and a.category in (select parameters from parameters_table where report_no = 1801 and id = 7)
+and ld.category in (select parameters from parameters_table where report_no = 1801 and id = 8)
+group by c.id;

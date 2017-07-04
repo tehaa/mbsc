@@ -1,0 +1,7 @@
+create table r_2_5001 (col int primary key  unique auto_increment not null)  auto_increment=53 as
+select substring_index(cu.short_name,'|',1) A,(te.amount_local_1)/1000000 B,te.currency_2 C,substring_index(cy.mid_reval_rate,'|',1) D
+from teller te 
+join customer cu on te.customer_2=cu.id
+join currency cy on te.currency_2=cy.id
+join t_2_5001 a on te.customer_2=a.cust
+where a.total>3
